@@ -44,7 +44,37 @@
       e.stopImmediatePropagation();
     });
   });
-
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('projects-btn').addEventListener('click', function (event) {
+      event.preventDefault(); // Prevent default link behavior
+  
+      // Show the projects container when the Projects link is clicked
+      const projectsContainer = document.getElementById('projects-container');
+      projectsContainer.style.display = 'block';
+  
+      // Fetch the projects.html content
+      fetch('projects.html')
+        .then(response => response.text())
+        .then(data => {
+          // Parse the response data and extract only the project details section
+          let parser = new DOMParser();
+          let doc = parser.parseFromString(data, 'text/html');
+          let projectsContent = doc.querySelector('#project-details'); // Extract only the projects section
+  
+          // Inject the project details into the container
+          projectsContainer.innerHTML = projectsContent.outerHTML;
+        })
+        .catch(error => {
+          console.error('Error loading project details:', error);
+        });
+  
+      // Optionally, hide the Projects link after it's clicked (if desired)
+      // document.getElementById('projects-btn').style.display = 'none';
+    });
+  });
+  
+  
+  
   /**
    * Preloader
    */
@@ -203,6 +233,7 @@
       }
     }
   });
+
 
   /**
    * Navmenu Scrollspy
