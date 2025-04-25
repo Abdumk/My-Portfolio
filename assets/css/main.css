@@ -1275,3 +1275,8 @@ section,
 }
 
 
+.services-list a.active {
+  color: #f7b204;  /* Highlight color */
+  font-weight: bold;
+  text-decoration: underline;
+}
